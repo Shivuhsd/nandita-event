@@ -18,7 +18,10 @@ def UserLogin(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            if request.user.is_superuser:
+                return redirect('dashboard')
+            else:
+                return redirect('home')
         else:
             messages.error(request, 'Check Your Credentials..')
 
@@ -48,13 +51,13 @@ def UserRegister(request):
 
 
 def UserBookings(request):
-    
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
+            messages.success(request, "Booked Succesfully")
             return redirect('userbooks')  # Redirect to a success URL
     else:
         form = BookingForm()
@@ -76,6 +79,7 @@ def Feedbacks(request):
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
+            messages.success(request, "Successfully Submitted..")
             return redirect('feedback')  # Redirect to a success URL
     else:
         form = FeedbackForm()
@@ -89,6 +93,7 @@ def Query(request):
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
+            messages.success(request, "Successfully Submitted..")
             return redirect('query')  # Redirect to a success URL
     else:
         form = EnquiryForm()

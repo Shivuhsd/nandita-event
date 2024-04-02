@@ -17,8 +17,7 @@ class Bookings(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, blank= True)
     name = models.CharField(max_length=100, blank=False)
     date = models.DateField(blank=False)
-    package_choices = [(package.id, f"{package.name} - {package.price}") for package in Package.objects.all()]
-    print(package_choices)
+    package_choices = [(package.name, f"{package.name} - {package.price}") for package in Package.objects.all()]
     package = models.CharField(max_length=100, choices = package_choices)
     email = models.EmailField(blank=False)
     phone = models.CharField(max_length = 10, blank=False)
