@@ -1,0 +1,52 @@
+{% extends 'dash.html' %}
+
+{%  block dash %}
+<div class="h3 my-5 text-center">Packages</div>
+
+<div class="m-5">
+    <form action="" method="POST" class="form-control">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button class="btn btn-dark">Submit</button>
+    </form>
+
+<p class="mt-5">Available Packages</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th>Action</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in pack %}
+      <tr>
+        <th scope="row">{{i.id}}</th>
+        <td>{{i.name}}</td>
+        <td>{{i.price}}</td>
+        <td>
+        <a href="{% url 'dashpackageedit' i.id %}">
+            <button class="btn btn-primary">Edit</button>
+        </a>
+        </td>
+
+        <td>
+            <a href="{% url 'dashpackagedelete' i.id %}">
+                <button class="btn btn-danger">Delete</button>
+            </a>
+            </td>
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+
+</div>
+
+
+    
+  
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'dash.html' %}
+
+{%  block dash %}
+<div class="h3 my-5 text-center">Feedbacks</div>
+{% for i in feeds %}
+<div class="card m-5">
+    <div class="card-header">
+      Feedback
+    </div>
+    <div class="card-body">
+      <h6 class="card-title"><b>Name: </b> {{i.name}}</h6>
+      <h6 class="card-title"><b>Email: </b> {{i.email}}</h6>
+      <p class="card-text"><b>Message: <br></b>{{i.message}}</p>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock %}
